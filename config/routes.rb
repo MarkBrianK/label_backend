@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
   resources :admins, only: [:new, :create, :index, :destroy]
-
+  resources :cloths do
+    resources :comments, only: [:index, :create, :update, :destroy]
+    resources :likes, only: [:index, :create, :destroy]
+  end
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
