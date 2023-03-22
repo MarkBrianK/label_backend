@@ -1,6 +1,12 @@
 class AdminsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  def index
+    @admins = User.all
+    render json: @admins
+  end
   def new
     @admin = Admin.new
+    render json: @admin
   end
 
   def create
@@ -8,20 +14,19 @@ class AdminsController < ApplicationController
 
     if @admin.save
       session[:admin_id] = @admin.id
-      redirect_to root_path, notice: 'Admin was successfully created.'
+      render json: @admin
+
     else
-      render :new
+      render json: @admin.errors, status: :unprocessable_entity
+
     end
   end
 
-  def index
-    @users = User.all
-  end
 
   def destroy
     user = User.find(params[:id])
     user.destroy
-    redirect_to admins_path, notice: 'User was successfully deleted.'
+    render json: { message: 'successfully deleted'}, status: :ok
   end
 
   private

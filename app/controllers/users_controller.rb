@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  skip_before_action :verify_authenticity_token
   def new
     @user = User.new
+    render json: @user
   end
 
   def create
@@ -8,9 +10,10 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path, notice: 'User was successfully created.'
+      render json: @user
+
     else
-      render :new
+      render json: {errors: "unprocessable"}, status: :unprocessable_entity
     end
   end
 

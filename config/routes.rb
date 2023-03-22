@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root 'home#index'
 
   resources :users, only: [:new, :create]
   resources :admins, only: [:new, :create, :index, :destroy]
