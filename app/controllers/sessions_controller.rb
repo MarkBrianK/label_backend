@@ -7,15 +7,15 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to root_path, notice: 'Logged in successfully.'
+      render json: { success: true, message: 'Logged in successfully.' }
     else
-      flash.now[:alert] = 'Invalid email or password.'
-      render :new
+      render json: { success: false, message: 'Invalid email or password.' }
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path, notice: 'Logged out successfully.'
+    render json: { success: true, message: 'Logged out successfully.' }
   end
 end
+
