@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_123059) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_23_082547) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_123059) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -30,6 +36,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_123059) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "size"
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_cloths_on_category_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -61,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_123059) do
     t.string "profile_picture"
   end
 
+  add_foreign_key "cloths", "categories"
   add_foreign_key "comments", "cloths"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "cloths"

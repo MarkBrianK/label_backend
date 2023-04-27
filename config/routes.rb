@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   end
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
+  get '/csrfToken', to: 'application#get_csrf_token'
+
 end
