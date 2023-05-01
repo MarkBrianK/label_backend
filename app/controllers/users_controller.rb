@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-
-
+  skip_before_action :verify_authenticity_token
 
   def new
     @user = User.new
@@ -14,7 +13,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       render json: @user
     else
-      render json: {errors: "unprocessable"}, status: :unprocessable_entity
+      render json: { errors: "unprocessable" }, status: :unprocessable_entity
     end
   end
 
@@ -24,7 +23,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       render json: @user
     else
-      render json: {errors: "unprocessable"}, status: :unprocessable_entity
+      render json: { errors: "unprocessable" }, status: :unprocessable_entity
     end
   end
 
@@ -33,5 +32,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :username, :profile_picture)
   end
-
 end

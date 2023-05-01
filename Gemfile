@@ -30,6 +30,8 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 gem 'faker'
+gem 'activerecord-session_store'
+
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -47,6 +49,8 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
 gem 'rack-cors'
+gem 'devise'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

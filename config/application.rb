@@ -11,6 +11,10 @@ module Server
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_your_app_session'
+    config.session_store :active_record_store, key: '_your_app_session', cookie: { key: '_your_app_user_id' }
+
+
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'http://localhost:3001'
@@ -23,8 +27,15 @@ module Server
 
     # CSRF protection settings
     config.action_controller.forgery_protection_origin_check = false
-    config.action_controller.default_protect_from_forgery = true
-    
+    config.action_controller.default_protect_from_forgery = {
+      with: :exception,
+      prepend: true,
+      same_site: :strict,
+      same_site: :lax,
+      same_site: :none
+    }
+
+
 
     # Configuration for the application, engines, and railties goes here.
     #
